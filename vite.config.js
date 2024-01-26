@@ -15,6 +15,10 @@ export default defineConfig({
       "/admin":{
         target: "http://47.109.47.32:8080",
         changeOrigin : true
+      },
+      "/public":{
+        target: "http://47.109.47.32:8080",
+        changeOrigin : true
       }
     }
   },

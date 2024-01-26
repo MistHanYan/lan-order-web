@@ -49,47 +49,33 @@
         </div>
 </template>
 <script setup>
-import router from "@/router/index.js";
-import {ref} from "vue";
 import {showNotify} from "vant";
 import {setCookie} from "@/util/cookie/Operation.js";
 import axios from "axios";
+import {ref} from "vue";
+import router from "@/router/index.js";
 
 const user_num = ref('');
 const passwd = ref('');
 
-function logIn(values) {
-    return new Promise((resolve, reject) => {
-        axios.create({
-            headers: {"Content-Type": "application/json"}
-        }).post("/admin/login", JSON.stringify(values))
+const onSubmit = (values) => {
+    try {
+        axios.create({headers: {"Content-Type" : "application/json"}})
+            .post("/admin/login", JSON.stringify(values))
             .then(Result => {
                 if (Result.data.success) {
                     setCookie("token", Result.data.data, 7);
-                    setCookie("user_num", values['user_num'],7);
-                    resolve(true);
+                    setCookie("user_num", values['user_num'], 7);
+                    router.push({path: "/home-page"});
+                    showNotify({type: 'success', message: '登录成功'});
                 } else {
-                    resolve(false);
+                    showNotify({type: 'warning', message: '登录失败'});
                 }
-            }).catch(error => {
-            console.log(error);
-            reject(error);
-        });
-    });
-}
-
-const onSubmit = async (values) => {
-    console.log(values)
-    try {
-        const success = await logIn(values);
-        if (success) {
-            showNotify({ type: 'success', message: '登录成功' });
-            await router.push({path: "/home-page"});
-        } else {
-            // 警告通知
-            showNotify({ type: 'warning', message: '登录失败' });
-            console.log("error");
-        }
+            })
+            .catch(error => {
+                showNotify({type: 'warning', message: '登录异常'});
+                console.log(error);
+            });
     } catch (error) {
         console.log(error);
     }

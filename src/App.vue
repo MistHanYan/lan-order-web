@@ -7,9 +7,11 @@ onMounted(async () => {
     try {
         if (await check()) {
             await router.push({ path: "/home-page" });
+        }else {
+            await router.push({path: "/"})
         }
     } catch (error) {
-        await router.push({path: "/login"})
+        await router.push({path: "/"})
         console.error(error);
     }
 });
