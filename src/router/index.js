@@ -1,16 +1,16 @@
 import { createWebHistory, createRouter } from "vue-router";
 import HomePage from "@/views/HomePage.vue";
 import LogIn from "@/views/LogIn.vue";
-import Other from "@/views/Other.vue";
-import Order from "@/views/Order.vue";
-import Commodity from "@/views/Commodity.vue";
-import Record from "@/views/Record.vue";
+import Other from "@/views/other/Other.vue";
+import Order from "@/views/order/Order.vue";
+import Commodity from "@/views/commodity/Commodity.vue";
+import Record from "@/views/record/Record.vue";
 
 const routes = [
     // {path: "", name: "default", redirect: "/LogIn"},
     {
         path: "/",
-        component: LogIn
+        component: LogIn,
     },
     {
         path: "/home-page",
@@ -19,24 +19,24 @@ const routes = [
             {
                 path: "",
                 name: "order",
-                component: Order
+                component: Order,
             },
             {
                 path: "/commodity",
                 name: "commodity",
-                component: Commodity
+                component: Commodity,
             },
             {
                 path: "/record",
                 name: "record",
-                component: Record
+                component: Record,
             },
             {
                 path: "/other",
                 name: "other",
-                component: Other
-            }
-        ]
+                component: Other,
+            },
+        ],
     },
 ];
 

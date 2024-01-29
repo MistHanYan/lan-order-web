@@ -1,46 +1,29 @@
 <template>
     <van-row>
-        <van-col span="24">
-            <van-card
-                :num
-                :price
-                desc="null"
-                :title
-                @click="enter">
-                <template #tags>
-                    <van-tag plain type="primary">标签</van-tag>
-                    <van-tag plain type="primary">标签</van-tag>
-                </template>
-                <template #footer>
-                    <van-button size="small">{{ buttonName }}</van-button>
-                </template>
-            </van-card>
-        </van-col>
+        <van-cell v-for="(value,key) in data[0]" :key="key">
+            <van-col span="24">
+                <Card :order="value"/>
+            </van-col>
+        </van-cell>
     </van-row>
-
 </template>
 
-<script setup>
-const order = defineProps(["item"]);
+<script setup lang="ts">
+import Card from "@/components/element/Card.vue";
+//import { makeArrayProp } from "vant/lib/utils";
 
-const orderData = order.item;
+let orderList = defineProps(["data"])
 
-console.log(orderData)
-//const tabNum = defineProps(["key"])
-
-defineExpose({
-    title: orderData.tabNum,
-    price: orderData.amount,
-    buttonShow: true,
-    num: orderData.storeList.length,
-    buttonName: "结束"
-})
-/*const orderData = {
-
-}*/
-const enter = () =>{
-    console.log("点击了卡片")
-}
+//const orderData = mapToObject(orderList)
+// function mapToObject(map){
+//   const obj = [];
+//   let i = 0;
+//     map.array.forEach(element => {
+//         obj[i] = element;
+//         i++;
+//     });
+// }
+//let data = reactive(orderList)
 </script>
 
 <style scoped>
