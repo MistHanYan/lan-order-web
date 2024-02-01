@@ -6,12 +6,12 @@ import router from "@/router/index.js";
 onMounted(async () => {
     try {
         if (await check()) {
-            await router.push({ path: "/home-page" });
+            router.push({ path: "/home-page" });
         }else {
-            await router.push({path: "/"})
+            router.push({path: "/"})
         }
     } catch (error) {
-        await router.push({path: "/"})
+        router.push({path: "/"})
         console.error(error);
     }
 });

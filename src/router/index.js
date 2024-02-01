@@ -9,7 +9,7 @@ import Record from "@/views/record/Record.vue";
 const routes = [
     // {path: "", name: "default", redirect: "/LogIn"},
     {
-        path: "/",
+        path: "/login",
         component: LogIn,
     },
     {
@@ -17,7 +17,7 @@ const routes = [
         component: HomePage,
         children: [
             {
-                path: "",
+                path: "/order",
                 name: "order",
                 component: Order,
             },
@@ -36,7 +36,15 @@ const routes = [
                 name: "other",
                 component: Other,
             },
+            {
+                path: "",
+                redirect: "/order",
+            },
         ],
+    },
+    {
+        path: "/",
+        redirect: "/login",
     },
 ];
 

@@ -1,41 +1,67 @@
 <template>
     <TopNavigation/>
-    <van-row>
-        <van-col span="24">
+    <van-pull-refresh 
+    v-model="refreshing" 
+    success-text="刷新成功"
+    @refresh="onRefresh">
+        <div class="container">
             <van-list
-                v-model:loading="loading"
                 :finished="finished"
-                finished-text="没有更多了"
+                v-model:loading="loading"
+                finished-text="没有更多订单了"
                 @load="onLoad">
                 <Cell :data="orderList"/>
-            </van-list>
-        </van-col>
-    </van-row>
+            </van-list> </div>
+    </van-pull-refresh>
+
 </template>
 <script setup>
-import TopNavigation from "@/components/TopNavigation.vue";
-import Cell from "@/components/Cell.vue";
-import { getOrder } from "@/hooks/Refresh.ts";
-import { onMounted } from "vue";
-import { useOrderStore } from "@/store/OrderInit.ts"
-//import { storeToRefs } from "pinia";
-//import { reactive } from "vue";
+import TopNavigation from "@/views/order/TopNavigation.vue";
+import Cell from "@/views/order/Cell.vue";
+import {getOrder} from "@/hooks/Refresh.ts";
+import {onMounted, reactive, ref} from "vue";
 
-const store = useOrderStore();
+// 列表状态
+const loading = ref(false);
 
-let orderList = store.getOrderListOfString
+// 数据状态
+const finished = ref(true);
 
+// 下滑状态
+const refreshing = ref(false);
 
+// 订单数据
+let orderList = reactive(null)
 
-onMounted(async () => {
-    try {
-         // Wait for the getOrder function to complete and get the response data
-        orderList = await getOrder();
-        // Assign the response data to the orderList variable
-    } catch (error) {
-        console.log(error)
-    }
-}
-);
+// 刷新列表数据
+const onLoad = async () => {
+        if (refreshing.value) {
+            orderList = await getOrder();
+            refreshing.value = false;
+        }
+        loading.value = false;
+};
+
+// 下滑
+const onRefresh = async() => {
+    // 清空列表数据
+    finished.value = false;
+    
+    // 重新加载数据
+    // 将 loading 设置为 true，表示处于加载状态
+    loading.value = true;
+    onLoad();
+};
+
+// 初始化数据
+ onMounted(async () => {
+    
+}) 
 
 </script>
+<style>
+.container {
+    height: 90vh;
+    overflow: auto;
+}
+</style>

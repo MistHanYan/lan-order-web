@@ -70,10 +70,12 @@ const onSubmit = (values) => {
                     showNotify({type: 'success', message: '登录成功'});
                 } else {
                     showNotify({type: 'warning', message: '登录失败'});
+                    router.push({path: "/"});
                 }
             })
             .catch(error => {
                 showNotify({type: 'warning', message: '登录异常'});
+                router.push({path: "/"});
                 console.log(error);
             });
     } catch (error) {
