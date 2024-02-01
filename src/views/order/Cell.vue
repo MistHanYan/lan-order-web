@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import Card from "@/components/element/Card.vue";
+import Card from "../views/order/Card.vue";
 //import { makeArrayProp } from "vant/lib/utils";
 
 let orderList = defineProps(["data"])
