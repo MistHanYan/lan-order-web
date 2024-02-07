@@ -13,7 +13,7 @@
                 <Cell :data="orderList"/>
             </van-list> </div>
     </van-pull-refresh>
-
+    <van-popup v-model:show="showCenter" round :style="{ padding: '64px' }" />
 </template>
 <script setup>
 import TopNavigation from "@/views/order/TopNavigation.vue";

@@ -16,12 +16,14 @@
     <van-button square text="删除" type="danger" class="delete-button" />
   </template>
 </van-swipe-cell>
-
-    
 </template>
 
 <script setup>
 const data = defineProps(["commodity"])
+
+const enter = () =>{
+    //show.value = true;
+}
 </script>
 
 <style scoped>
